@@ -1,5 +1,5 @@
-import Application from 'fcct-test/app';
-import config from 'fcct-test/config/environment';
+import Application from 'fcct-interop-demo/app';
+import config from 'fcct-interop-demo/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';

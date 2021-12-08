@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   let ENV = {
-    modulePrefix: 'fcct-test',
+    modulePrefix: 'fcct-interop-demo',
     environment,
     rootURL: '/',
     locationType: 'auto',

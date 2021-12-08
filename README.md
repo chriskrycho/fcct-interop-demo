@@ -1,57 +1,28 @@
-# fcct-test
+# fcct-interop-demo
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This demonstrates the current (as of 2021/12/08) interop problem for [First-Class Component Templates][rfc] with non-colocated component templates.
 
-## Prerequisites
+[rfc]: https://github.com/emberjs/rfcs/pull/779
 
-You will need the following things properly installed on your computer.
+To see how this currently *doesn't work*:
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/)
-* [Yarn](https://yarnpkg.com/)
-* [Ember CLI](https://ember-cli.com/)
-* [Google Chrome](https://google.com/chrome/)
+Set up [ember-template-imports](https://github.com/ember-template-imports/ember-template-imports): 
 
-## Installation
+- clone it and check out PR #25
+- run `yarn pack`
+- grab the path to the generated `.tgz` file
 
-* `git clone <repository-url>` this repository
-* `cd fcct-test`
-* `yarn install`
+Set up *this* project:
 
-## Running / Development
+- clone this repo
+- update the path for `ember-template-imports` to point to the `.tgz` file from `yarn pack`-ing it
+- run `yarn` to install dependencies
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+See the bug:
 
-### Code Generators
+- run `ember serve`
+- open `http://localhost:4200` to see the app running
 
-Make use of the many generators for code, try `ember help generate` for more details
+If interop with non-colocated templates *did* work you would see `This is old school!` in a second paragraph. If there were any debug info in the build or console, you could be informed that something isn't right. Instead, you see the body of the `<Fcct />` component up to the point where it invokes the `<OldSchool />` component, and then *nothing*, and then the rest of the body of the `<Fcct />` component.
 
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Linting
-
-* `yarn lint`
-* `yarn lint:fix`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+That is: this silently fails in a way that is completely inscrutable to developers!
